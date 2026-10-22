@@ -32,14 +32,33 @@ v
 |  - Classical Envelope Peak Prominence |
 |  - ML Inference & State Aggregation   |
 +---------------------------------------+
+```
+ML Model Accuracy: Achieves >99% Accuracy across unseen held-out test bearings. 
 
----
-ML Model Accuracy: Achieves >99% Accuracy across unseen held-out test bearings.
 Hybrid Verification: Short micro-window classical envelope analysis (~90% window-level detection due to transient ball slip) combined with ML temporal aggregation provides 100% industrial operational reliability.
----
-##🛠 Tech Stack
-Language: Python 3.9+
-Protocols & Streaming: MQTT v2.0 (Eclipse Mosquitto, Paho-MQTT)
-Signal Processing: SciPy (Hilbert transform, signal filtering), NumPy (Vectorized FFT & Zero-padding)
-Machine Learning: Scikit-Learn (Ensemble classifiers, GroupShuffleSplit, Robust Scaling)
-Data & Serialization: JSON payload streaming, Pathlib, SciPy.io (.mat parser)
+
+## 🛠 Tech Stack
+* Language: Python 3.9+ 
+* Protocols & Streaming: MQTT v2.0 (Eclipse Mosquitto, Paho-MQTT) 
+* Signal Processing: SciPy (Hilbert transform, signal filtering), NumPy (Vectorized FFT & Zero-padding) 
+* Machine Learning: Scikit-Learn (Ensemble classifiers, GroupShuffleSplit, Robust Scaling) 
+* Data & Serialization: JSON payload streaming, Pathlib, SciPy.io (.mat parser)
+
+## 📋 Getting Started
+### 1. Prerequisites
+Ensure a local MQTT broker (such as Eclipse Mosquitto) is installed and active on localhost:1883.
+
+## 2. Installation 
+```text
+git clone https://github.com/<your-username>/Robust-Bearing-Fault-Diagnosis.git
+cd Robust-Bearing-Fault-Diagnosis
+pip install -r requirements.txt
+```
+
+## 3. Running the Live IIoT Pipeline
+Launch two terminal instances:
+
+### Terminal 1 — Real-Time Inference Receiver:
+```text
+python receiver.py
+```
