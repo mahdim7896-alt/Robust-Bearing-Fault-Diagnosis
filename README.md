@@ -62,3 +62,17 @@ Launch two terminal instances:
 ```text
 python receiver.py
 ```
+
+### Terminal 2 — Edge Replay DAQ Streamer:
+```text
+python sender.py
+```
+(The sender automatically sequences baseline/normal recordings first for clear visual demonstration before streaming outer and inner race faults).
+
+## 🔮 Roadmap
+* [x] MFPT Dataset Integration & Kinematic Fault Calculation
+* [x] Strict Group-based Train/Test Split (Zero Data Leakage)
+* [x] Load-Invariant Feature Extraction Pipeline
+* [x] Real-time MQTT Edge Streaming Pipeline (sender.py & receiver.py)
+* [x] Classical Envelope DSP (Hilbert Transform & Local SNR Prominence)
+* [ ] Containerized Edge Deployment via Docker & Grafana Dashboard Visualization
