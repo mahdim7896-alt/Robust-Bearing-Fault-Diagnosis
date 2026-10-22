@@ -1,32 +1,41 @@
-# Robust Bearing Fault Diagnosis (MFPT Dataset)
+# Robust Industrial IIoT Bearing Fault Diagnosis & Predictive Maintenance
 
-A professional-grade machine learning pipeline for vibration-based fault diagnosis, specifically engineered to handle load-variance and prevent data leakage.
-
-## 🚀 The Challenge
-Most fault diagnosis models suffer from **Data Leakage** and **Load Dependency**. In this project, we successfully addressed:
-*   **Data Leakage Prevention:** Utilizing `GroupShuffleSplit` to ensure that data from the same file never leaks between training and testing sets.
-*   **Load-Invariant Features:** Engineering a feature extraction process that maintains accuracy even when the machine's load changes.
-*   **Sampling Rate Variance:** Handling mixed sampling rates across the MFPT dataset effectively.
-
-## 📈 Performance
-The model achieves an impressive **99.2% Accuracy** on the testing set, verified through rigorous validation methods to ensure the results are robust and not overfitted.
-
-![Confusion Matrix](Figure_1.webp)
-
-## 🛠 Tech Stack
-*   **Language:** Python
-*   **Libraries:** NumPy, Pandas, Scikit-learn, OpenCV (for signal visualization)
-*   **Technique:** Signal Processing, Group-based Cross-Validation, StandardScaler
-
-## 📋 Getting Started
-1. Clone the repo: `git clone https://github.com/your-username/Robust-Bearing-Fault-Diagnosis.git`
-2. Prepare your MFPT dataset in the `/data` directory.
-3. Run the training pipeline: `python main.py`
-
-## 🔮 Roadmap
-- [x] MFPT Dataset Integration
-- [x] Load-Invariant Model Architecture
-- [ ] Synthetic Real-time Signal Generator (In Progress)
+A production-grade, end-to-end Predictive Maintenance (PdM) pipeline combining **Physics-informed Signal Processing (Envelope DSP)** and **Machine Learning** over an **MQTT streaming architecture**, engineered to handle load variance and eliminate data leakage.
 
 ---
-*Developed by Mahdi - AI/ML Developer.*
+
+## 🚀 Key Engineering Challenges Solved
+
+Most fault diagnosis models suffer from static file evaluation, artificial data leakage, and load dependency. This project resolves these issues at an industrial level:
+
+* **Zero Data Leakage:** File-level partitioning using `GroupShuffleSplit` guarantees that micro-windows from the same raw `.mat` file never cross between training and testing sets.
+* **Physics-Driven Envelope DSP:** Live computation of bearing characteristic defect frequencies (BPFO ≈ 81.1 Hz, BPFI ≈ 118.9 Hz) based on physical kinematics (d=0.235'', D=1.245'', n=8, α=0°) via Hilbert Transform, zero-padded FFT resolution (N_FFT = 32,768), and local SNR noise-floor analysis.
+* **Decoupled IIoT Streaming Architecture:** Replaces synthetic dummy signals with an authentic edge DAQ replay streamer (`sender.py`) transmitting live vibration micro-windows over **MQTT (Mosquitto)** to an autonomous inference engine (`receiver.py`).
+* **Load-Invariant Feature Engineering:** Robust spectral and statistical features maintaining high discrimination across varying operational loads.
+
+---
+
+## 📈 System Architecture & Performance
+```text
++---------------------------------------+
+|              sender.py                |
+|  - Edge DAQ Replay Streamer           |
+|  - Isolated Test Set (File-level)     |
+|  - Micro-windowing (~42 ms windows)   |
++---------------------------------------+
+|
+|  MQTT Topic: factory/bearing_1/vibration
+v
++---------------------------------------+
+|             receiver.py               |
+|  - Real-time Paho-MQTT Ingestion      |
+|  - Classical Envelope Peak Prominence |
+|  - ML Inference & State Aggregation   |
++---------------------------------------+
+
+## 🛠 Tech Stack
+Language: Python 3.9+
+Protocols & Streaming: MQTT v2.0 (Eclipse Mosquitto, Paho-MQTT)
+Signal Processing: SciPy (Hilbert transform, signal filtering), NumPy (Vectorized FFT & Zero-padding)
+Machine Learning: Scikit-Learn (Ensemble classifiers, GroupShuffleSplit, Robust Scaling)
+Data & Serialization: JSON payload streaming, Pathlib, SciPy.io (.mat parser)
