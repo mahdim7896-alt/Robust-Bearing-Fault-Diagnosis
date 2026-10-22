@@ -33,11 +33,5 @@ v
 |  - ML Inference & State Aggregation   |
 +---------------------------------------+
 
-
 ---
-## 🛠 Tech Stack
-Language: Python 3.9+
-Protocols & Streaming: MQTT v2.0 (Eclipse Mosquitto, Paho-MQTT)
-Signal Processing: SciPy (Hilbert transform, signal filtering), NumPy (Vectorized FFT & Zero-padding)
-Machine Learning: Scikit-Learn (Ensemble classifiers, GroupShuffleSplit, Robust Scaling)
-Data & Serialization: JSON payload streaming, Pathlib, SciPy.io (.mat parser)
+
