@@ -33,6 +33,8 @@ v
 |  - ML Inference & State Aggregation   |
 +---------------------------------------+
 
+
+---
 ## 🛠 Tech Stack
 Language: Python 3.9+
 Protocols & Streaming: MQTT v2.0 (Eclipse Mosquitto, Paho-MQTT)
